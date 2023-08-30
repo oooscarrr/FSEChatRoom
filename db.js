@@ -4,7 +4,6 @@ require("dotenv").config();
 
 const UserSchema = new mongoose.Schema({
     username: { type: String, unique: true},
-    // password: { type: String, required: true}
 });
 
 const MessageSchema = new mongoose.Schema({
