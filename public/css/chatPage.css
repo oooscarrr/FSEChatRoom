@@ -1,0 +1,98 @@
+body {
+    font-family: Tahoma, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #2d2d2d;
+}
+
+textarea {
+    resize: none;
+}
+
+#topBar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #91bdf7;
+    margin-bottom: 10px;
+}
+
+#chatName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#logoutButton {
+    margin-right: 10px;
+}
+
+#logoutButton, #postButton {
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+    background: #f9a961;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#messagesContainer {
+    position: fixed;
+    top: 60px;
+    bottom: 200px;
+    width: 95%;
+    overflow-y: scroll;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 15px;
+    overflow-wrap: break-word;
+    background-color: #ebebeb;
+}
+
+.messageInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.messageUsername {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#postForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 190px;
+}
+
+#postText {
+    width: 95%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#postButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 30px;
+    background-color: #91bdf7;
+}

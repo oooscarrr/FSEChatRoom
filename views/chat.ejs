@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FSE Chat Room</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/chatPage.css">
+</head>
+<body>
+    <div id="topBar">
+        <div id="chatName">FSE Chat Room</div>
+        <button id="logoutButton">Logout</button>
+    </div>
+    <div id="messagesContainer">
+        <% function formatDateString(timestamp) {
+            const month = (timestamp.getMonth()+1).toString().padStart(2, '0');
+            const day = timestamp.getDate().toString().padStart(2, '0');
+            const year = timestamp.getFullYear();
+            const hour = timestamp.getHours().toString().padStart(2, '0');
+            const minute = timestamp.getMinutes().toString().padStart(2, '0');
+            const amOrPm = hour < 12 ? 'AM' : 'PM';
+            return `${month}.${day}.${year} ${hour}:${minute} ${amOrPm}`;
+        } %>
+        <% allMessages.forEach(aMessage => { %>
+            <div class="message">
+                <div class="messageInfo">
+                    <div class="messageUsername"><%= aMessage.username %></div>
+                    <div class="messageTime"><%= formatDateString(aMessage.timestamp) %></div>
+                </div>
+                <div class="messageText"><%= aMessage.content %></div>
+            </div> 
+        <% }) %>
+    </div>
+    <form id="postForm">
+        <textarea id="postText" name="postText"></textarea>
+        <div id="postButtonContainer">
+            <input type="submit" id="postButton" value="Post"/>
+        </div>
+    </form>
+<script src="https://cdn.socket.io/4.1.2/socket.io.js"></script>
+<script src="js/chat.js"></script>
+</body>
+</html>
