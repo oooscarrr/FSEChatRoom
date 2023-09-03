@@ -8,16 +8,17 @@
 </head>
 <body>
     <h1>FSE Chat Room</h1>
-    <form id="loginForm" autocomplete="off">
+    <form id="loginForm" method="POST" autocomplete="off">
         <label for="username">Username</label>
-        <input type="text" id="username"/>
+        <input type="text" id="username" name="username"/>
         <label for="password">Password</label>
-        <input type="password" id="password"/>
+        <input type="password" id="password" name="password"/>
         <div id="buttonsContainer">
-            <input type="button" id="loginButton" value="Login"/>
-            <input type="button" id="registerButton" value="Register"/>
+            <input type="submit" id="loginButton" value="Login"/>
+            <input type="submit" id="registerButton" value="Register"/>
         </div>
     </form>
+    <p id="errorMessage"><%= messages.error %></p>
 <script src="js/login.js"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require('express-flash')());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -60,7 +61,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/chat', async (req, res) => {
-    if (req.isAuthenticated() && req.query.username === req.user.username) {
+    if (req.isAuthenticated()) {
         const allMessages = await Message.find().sort({timestamp: -1});
         res.render('chat', {allMessages: allMessages});
     } else {
@@ -68,29 +69,28 @@ app.get('/chat', async (req, res) => {
     }
 });
 
-// app.post('/login', passport.authenticate('local', {successRedirect: '/chat', failureRedirect: '/', failureMessage: true}));
-app.post('/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user) {
-        if (user) {
-            req.logIn(user, function (err) {
-                if (err) {
-                    console.log(err.toString());
-                }
-                res.json({success: true, user: user, message: 'Login success.'});
-            });
-        } else {
-            res.json({success: false, message: 'Your username or password is incorrect.'});
-        }
-    })(req, res, next);
+app.get('/username', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.json({username: req.user.username});
+    } else {
+        res.json({username: null});
+    }
 });
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/chat',
+    failureRedirect: '/',
+    failureFlash: true
+}));
 
 app.post('/register', (req, res) => {
     User.register(new User({username: req.body.username}), req.body.password, (err, user) => {
         if (err) {
-            res.json({success: false, message: err.toString()});
+            req.flash('error', err.message);
+            res.redirect('/');
         } else {
             passport.authenticate('local')(req, res, () => {
-                res.json({success: true, user, message: 'Register Success.'});
+                res.redirect('/chat');
             });
         }
     });
@@ -99,9 +99,9 @@ app.post('/register', (req, res) => {
 app.post('/logout', (req, res) => { 
     req.logout((err) => {
         if (err) {
-            res.json({success: false, message: err.toString()});
+            req.flash('error', err.message);
         }
-        res.json({success: true, message: 'Logout success.'});
+        res.redirect('/');
     });
 });
 

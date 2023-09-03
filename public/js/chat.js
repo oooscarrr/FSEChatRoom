@@ -2,11 +2,9 @@ const socket = io();
 
 document.addEventListener('DOMContentLoaded', main);
 
-function main() {
-    const urlParameters = new URLSearchParams(window.location.search);
-    const username = urlParameters.get('username');
+async function main() {
+    const username = await getUsername();
 
-    document.querySelector('#logoutButton').addEventListener('click', logout);
     document.querySelector('#postForm').addEventListener('submit', e => {
         e.preventDefault();
         postTextElement = document.querySelector('#postText');
@@ -50,17 +48,10 @@ function main() {
     });
 }
 
-async function logout() {
-    const res = await fetch('/logout', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-    });
+async function getUsername() {
+    const res = await fetch('/username');
     const response = await res.json();
-    if (response.success) {
-        window.location.href = '/';
-    } else {
-        alert(response.message);
-    }
+    return response.username;
 }
 
 function formatDateString(timestamp) {

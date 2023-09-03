@@ -9,7 +9,9 @@
 <body>
     <div id="topBar">
         <div id="chatName">FSE Chat Room</div>
-        <button id="logoutButton">Logout</button>
+        <form id="logoutForm" method="POST" action="/logout">
+            <input type="submit" id="logoutButton" value="Logout"/>
+        </form>
     </div>
     <div id="messagesContainer">
         <% function formatDateString(timestamp) {
