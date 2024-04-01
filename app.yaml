@@ -1,0 +1,5 @@
+runtime: nodejs20
+
+env_variables:
+  dbUsername: "ruizhizx"
+  dbPassword: "9eXoIZIVKpBvaXF7"
