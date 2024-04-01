@@ -128,4 +128,4 @@ typings/
 **/.jekyll-cache
 **/_site/
 
-.yaml
+*.yaml
